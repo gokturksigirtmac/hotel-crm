@@ -1,0 +1,193 @@
+package com.example.visitor_crm_be.model;
+
+import jakarta.persistence.*;
+
+import java.time.OffsetDateTime;
+
+@Entity
+public class Visitor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
+    private Long companyID;
+    private Long driverID;
+    private Long vehicleID;
+    private String fullName;
+    private String phoneNumber;
+    private String email;
+    private int passangers;
+    private String oneWayOrRoundTrip;
+    private OffsetDateTime departureDateTime;
+    private String visitorFrom;
+    private String visitorTo;
+    private String flightNumber;
+    private String price;
+    private String currency;
+    private String hotelName;
+    private String note;
+    private OffsetDateTime createdAt;
+    private OffsetDateTime updatedAt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public Long getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(Long companyID) {
+        this.companyID = companyID;
+    }
+
+    public Long getDriverID() {
+        return driverID;
+    }
+
+    public void setDriverID(Long driverID) {
+        this.driverID = driverID;
+    }
+
+    public Long getVehicleID() {
+        return vehicleID;
+    }
+
+    public void setVehicleID(Long vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPassangers() {
+        return passangers;
+    }
+
+    public void setPassangers(int passangers) {
+        this.passangers = passangers;
+    }
+
+    public String getOneWayOrRoundTrip() {
+        return oneWayOrRoundTrip;
+    }
+
+    public void setOneWayOrRoundTrip(String oneWayOrRoundTrip) {
+        this.oneWayOrRoundTrip = oneWayOrRoundTrip;
+    }
+
+    public OffsetDateTime getDepartureDateTime() {
+        return departureDateTime;
+    }
+
+    public void setDepartureDateTime(OffsetDateTime departureDateTime) {
+        this.departureDateTime = departureDateTime;
+    }
+
+    public String getVisitorFrom() {
+        return visitorFrom;
+    }
+
+    public void setVisitorFrom(String visitorFrom) {
+        this.visitorFrom = visitorFrom;
+    }
+
+    public String getVisitorTo() {
+        return visitorTo;
+    }
+
+    public void setVisitorTo(String visitorTo) {
+        this.visitorTo = visitorTo;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+}

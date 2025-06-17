@@ -20,14 +20,14 @@ public class VisitorService {
     private final HotelRepository hotelRepository;
 
     public VisitorResponseDTO create(VisitorCreateDTO dto) {
-        Hotel hotel = hotelRepository.findById(dto.getHotelId())
+        Hotel hotel = hotelRepository.findById(dto.getHotel().getId())
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
 
         Visitor visitor = new Visitor();
         visitor.setHotel(hotel);
-        visitor.setCompanyID(dto.getCompanyID());
-        visitor.setDriverID(dto.getDriverID());
-        visitor.setVehicleID(dto.getVehicleID());
+        visitor.setCompany(dto.getCompany());
+        visitor.setDriver(dto.getDriver());
+        visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
         visitor.setEmail(dto.getEmail());
@@ -51,9 +51,9 @@ public class VisitorService {
         Visitor visitor = visitorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
 
-        visitor.setCompanyID(dto.getCompanyID());
-        visitor.setDriverID(dto.getDriverID());
-        visitor.setVehicleID(dto.getVehicleID());
+        visitor.setCompany(dto.getCompany());
+        visitor.setDriver(dto.getDriver());
+        visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
         visitor.setEmail(dto.getEmail());
@@ -89,10 +89,10 @@ public class VisitorService {
     private VisitorResponseDTO mapToDTO(Visitor visitor) {
         VisitorResponseDTO dto = new VisitorResponseDTO();
         dto.setId(visitor.getId());
-        dto.setHotelId(visitor.getHotel().getId());
-        dto.setCompanyID(visitor.getCompanyID());
-        dto.setDriverID(visitor.getDriverID());
-        dto.setVehicleID(visitor.getVehicleID());
+        dto.setHotel(visitor.getHotel());
+        dto.setCompany(visitor.getCompany());
+        dto.setDriver(visitor.getDriver());
+        dto.setVehicle(visitor.getVehicle());
         dto.setFullName(visitor.getFullName());
         dto.setPhoneNumber(visitor.getPhoneNumber());
         dto.setEmail(visitor.getEmail());

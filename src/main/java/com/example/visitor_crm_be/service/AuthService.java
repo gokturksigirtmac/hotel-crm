@@ -12,7 +12,7 @@ public class AuthService {
     private UserRepository userRepository;
 
     public User login(String username, String password) {
-        return userRepository.findByUsername(username)
+        return userRepository.findByEmail(username)
                 .filter(user -> user.getPassword().equals(password))
                 .orElse(null);
     }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,20 +32,14 @@ public class Visitor {
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Trip> trips = new ArrayList<>();
+
     private String fullName;
     private String phoneNumber;
-    private String email;
-    private int passangers;
-    private String oneWayOrRoundTrip;
-    private OffsetDateTime departureDateTime;
-    private String visitorFrom;
-    private String visitorTo;
-    private String flightNumber;
-    private String price;
-    private String currency;
-    private String hotelName;
-    private String note;
+    private int numberOfPersons;
+    private String specialNote;
+    private String tripType;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-
 }

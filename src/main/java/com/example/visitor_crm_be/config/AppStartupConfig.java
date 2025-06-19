@@ -113,31 +113,21 @@ public class AppStartupConfig implements CommandLineRunner {
                 .orElseGet(() -> {
                     Visitor visitor = new Visitor();
                     visitor.setFullName("Admin Visitor");
-                    visitor.setEmail("visitor@admin.com");
                     visitor.setPhoneNumber("555-000-0000");
+                    visitor.setNumberOfPersons(1);
+                    visitor.setSpecialNote("Initial seeded visitor");
+                    visitor.setTripType("From Airport");
 
-                    // required relationships
                     visitor.setHotel(defaultAdminHotel);
                     visitor.setCompany(defaultAdminCompany);
                     visitor.setDriver(defaultAdminDriver);
                     visitor.setVehicle(defaultAdminVehicle);
-
-                    // optional fields (fill as needed)
-                    visitor.setPassangers(1);
-                    visitor.setCurrency("EUR");
-                    visitor.setPrice("0");
-                    visitor.setNote("Seeded test visitor");
-                    visitor.setFlightNumber("TK123");
-                    visitor.setVisitorFrom("Istanbul");
-                    visitor.setVisitorTo("Berlin");
-                    visitor.setOneWayOrRoundTrip("OneWay");
-                    visitor.setHotelName("Default Hotel");
-                    visitor.setDepartureDateTime(OffsetDateTime.now().plusDays(1));
                     visitor.setCreatedAt(OffsetDateTime.now());
                     visitor.setUpdatedAt(OffsetDateTime.now());
 
                     return visitorRepository.save(visitor);
                 });
+
 
 
         // Seed Admin User

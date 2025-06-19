@@ -1,5 +1,6 @@
 package com.example.visitor_crm_be.repository;
 
+import com.example.visitor_crm_be.model.Trip;
 import com.example.visitor_crm_be.model.Visitor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,9 +13,8 @@ import java.util.Optional;
 
 @EnableJpaRepositories
 public interface VisitorRepository extends JpaRepository<Visitor, Long> {
-    @Query("SELECT v FROM Visitor v WHERE v.departureDateTime BETWEEN :start AND :end")
-    List<Visitor> findByDepartureDateTimeRange(@Param("start") OffsetDateTime start,
-                                               @Param("end") OffsetDateTime end);
+    @Query("SELECT DISTINCT v FROM Visitor v JOIN v.trips t WHERE t.datetime BETWEEN :start AND :end")
+    List<Visitor> findVisitorsWithTripsBetween(@Param("start") OffsetDateTime start, @Param("end") OffsetDateTime end);
 
     Optional<Visitor> findByFullName(String fullName);
 }

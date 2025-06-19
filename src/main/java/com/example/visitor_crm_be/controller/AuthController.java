@@ -9,7 +9,6 @@ import com.example.visitor_crm_be.error.UserAlreadyExistsException;
 import com.example.visitor_crm_be.security.JwtHelper;
 import com.example.visitor_crm_be.security.SecurityConfig;
 import com.example.visitor_crm_be.service.UserImpService;
-import com.example.visitor_crm_be.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +58,9 @@ public class AuthController {
         }
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthRequestDTO authRequestDTO) {
+        System.out.println(authRequestDTO.getUsername() + " " + authRequestDTO.getPassword());
         this.doAuthenticate(authRequestDTO.getUsername(), authRequestDTO.getPassword());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());

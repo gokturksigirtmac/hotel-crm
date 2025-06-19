@@ -19,17 +19,9 @@ public class VisitorResponseDTO {
     private Vehicle vehicle;
     private String fullName;
     private String phoneNumber;
-    private String email;
-    private int passangers;
-    private String oneWayOrRoundTrip;
-    private OffsetDateTime departureDateTime;
-    private String visitorFrom;
-    private String visitorTo;
-    private String flightNumber;
-    private String price;
-    private String currency;
-    private String hotelName;
-    private String note;
+    private int numberOfPersons;
+    private String specialNote;
+    private String tripType;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 

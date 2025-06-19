@@ -15,6 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -33,12 +40,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //configuration
         http.csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                .cors(withDefaults())
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.
-                        requestMatchers("/api/visitors").hasAuthority("ROLE_HOTEL_STAFF").
-                        requestMatchers("/api/visitors/**").hasAuthority("ROLE_HOTEL_STAFF").
+                        requestMatchers("/api/visitors").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/visitors/**").hasAuthority("ROLE_ADMIN").
                         requestMatchers("/api/companies").hasAuthority("ROLE_ADMIN").
                         requestMatchers("/api/companies/**").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/drivers").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/drivers/**").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/locations").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/locations/**").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/vehicles").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/vehicles/**").hasAuthority("ROLE_ADMIN").
                         requestMatchers("/api/auth/login").permitAll().
                         requestMatchers("/auth/create").permitAll().
                         anyRequest().authenticated())
@@ -47,6 +60,19 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // React için izin ver
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*")); // İzin verilen header'lar
+        configuration.setAllowCredentials(true); // Eğer cookie varsa
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Bean
     public DaoAuthenticationProvider doDaoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();

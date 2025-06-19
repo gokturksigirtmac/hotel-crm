@@ -30,17 +30,7 @@ public class VisitorService {
         visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
-        visitor.setEmail(dto.getEmail());
-        visitor.setPassangers(dto.getPassangers());
-        visitor.setOneWayOrRoundTrip(dto.getOneWayOrRoundTrip());
-        visitor.setDepartureDateTime(dto.getDepartureDateTime());
-        visitor.setVisitorFrom(dto.getVisitorFrom());
-        visitor.setVisitorTo(dto.getVisitorTo());
-        visitor.setFlightNumber(dto.getFlightNumber());
-        visitor.setPrice(dto.getPrice());
-        visitor.setCurrency(dto.getCurrency());
-        visitor.setHotelName(dto.getHotelName());
-        visitor.setNote(dto.getNote());
+        visitor.setNumberOfPersons(dto.getNumberofPersons());
         visitor.setCreatedAt(OffsetDateTime.now());
         visitor.setUpdatedAt(OffsetDateTime.now());
 
@@ -56,17 +46,7 @@ public class VisitorService {
         visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
-        visitor.setEmail(dto.getEmail());
-        visitor.setPassangers(dto.getPassangers());
-        visitor.setOneWayOrRoundTrip(dto.getOneWayOrRoundTrip());
-        visitor.setDepartureDateTime(dto.getDepartureDateTime());
-        visitor.setVisitorFrom(dto.getVisitorFrom());
-        visitor.setVisitorTo(dto.getVisitorTo());
-        visitor.setFlightNumber(dto.getFlightNumber());
-        visitor.setPrice(dto.getPrice());
-        visitor.setCurrency(dto.getCurrency());
-        visitor.setHotelName(dto.getHotelName());
-        visitor.setNote(dto.getNote());
+        visitor.setNumberOfPersons(dto.getNumberOfPersons());
         visitor.setUpdatedAt(OffsetDateTime.now());
 
         return mapToDTO(visitorRepository.save(visitor));
@@ -95,17 +75,7 @@ public class VisitorService {
         dto.setVehicle(visitor.getVehicle());
         dto.setFullName(visitor.getFullName());
         dto.setPhoneNumber(visitor.getPhoneNumber());
-        dto.setEmail(visitor.getEmail());
-        dto.setPassangers(visitor.getPassangers());
-        dto.setOneWayOrRoundTrip(visitor.getOneWayOrRoundTrip());
-        dto.setDepartureDateTime(visitor.getDepartureDateTime());
-        dto.setVisitorFrom(visitor.getVisitorFrom());
-        dto.setVisitorTo(visitor.getVisitorTo());
-        dto.setFlightNumber(visitor.getFlightNumber());
-        dto.setPrice(visitor.getPrice());
-        dto.setCurrency(visitor.getCurrency());
-        dto.setHotelName(visitor.getHotelName());
-        dto.setNote(visitor.getNote());
+        dto.setNumberOfPersons(visitor.getNumberOfPersons());
         dto.setCreatedAt(visitor.getCreatedAt());
         dto.setUpdatedAt(visitor.getUpdatedAt());
         return dto;

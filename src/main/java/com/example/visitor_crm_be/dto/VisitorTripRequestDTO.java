@@ -10,10 +10,7 @@ import java.util.List;
 public class VisitorTripRequestDTO {
     private String fullName;
     private String phoneNumber;
-    private int numberOfPersons;
-    private Long companyId;
-    private Long vehicleId;
-    private Long driverId;
+    private int numberOfPerson;
     private Long hotelId;
     private String specialNote;
     private String tripType; // From Airport, From Hotel, Round Trip

@@ -17,7 +17,7 @@ import java.util.function.Function;
 public class JwtHelper {
 
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60; // token expire date
+    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 60 * 60; // token expire date
 
     private String secret = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf"; // secret code
 

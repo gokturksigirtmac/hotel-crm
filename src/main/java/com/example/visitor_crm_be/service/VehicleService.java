@@ -28,7 +28,7 @@ public class VehicleService {
         vehicle.setHotel(hotel);
         vehicle.setBrand(dto.getBrand());
         vehicle.setModel(dto.getModel());
-        vehicle.setLicensePlateNumber(dto.getLicensePlateNumber());
+        vehicle.setPlateNumber(dto.getLicensePlateNumber());
         vehicle.setCreatedAt(OffsetDateTime.now());
         vehicle.setUpdatedAt(OffsetDateTime.now());
 
@@ -41,7 +41,7 @@ public class VehicleService {
 
         vehicle.setBrand(dto.getBrand());
         vehicle.setModel(dto.getModel());
-        vehicle.setLicensePlateNumber(dto.getLicensePlateNumber());
+        vehicle.setPlateNumber(dto.getLicensePlateNumber());
         vehicle.setUpdatedAt(OffsetDateTime.now());
 
         return mapToDTO(vehicleRepository.save(vehicle));
@@ -67,7 +67,7 @@ public class VehicleService {
         dto.setHotelId(vehicle.getHotel().getId());
         dto.setBrand(vehicle.getBrand());
         dto.setModel(vehicle.getModel());
-        dto.setLicensePlateNumber(vehicle.getLicensePlateNumber());
+        dto.setLicensePlateNumber(vehicle.getPlateNumber());
         dto.setCreatedAt(vehicle.getCreatedAt());
         dto.setUpdatedAt(vehicle.getUpdatedAt());
         return dto;

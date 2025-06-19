@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,9 +18,14 @@ public class Driver {
     @ManyToOne
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "driver")
+    private List<Trip> trips;
+
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String licenseNumber;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 

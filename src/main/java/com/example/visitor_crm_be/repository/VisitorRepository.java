@@ -16,5 +16,10 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long> {
     @Query("SELECT DISTINCT v FROM Visitor v JOIN v.trips t WHERE t.datetime BETWEEN :start AND :end")
     List<Visitor> findVisitorsWithTripsBetween(@Param("start") OffsetDateTime start, @Param("end") OffsetDateTime end);
 
+    List<Visitor> findAll();
+
+    @Query("SELECT v FROM Visitor v LEFT JOIN FETCH v.trips")
+    List<Visitor> findAllWithTrips();
+
     Optional<Visitor> findByFullName(String fullName);
 }

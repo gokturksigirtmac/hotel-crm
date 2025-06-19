@@ -19,12 +19,28 @@ public class Trip {
     private OffsetDateTime datetime;
 
     @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
+    @JoinColumn(name = "from_location_id")
+    private Location fromLocation;
+
+    @ManyToOne
+    @JoinColumn(name = "to_location_id")
+    private Location toLocation;
 
     @ManyToOne
     @JoinColumn(name = "visitor_id")
     private Visitor visitor;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
     // Getters and setters
 }

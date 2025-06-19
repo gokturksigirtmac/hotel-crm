@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,6 +18,14 @@ public class Location {
     @ManyToOne
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "fromLocation")
+    private List<Trip> fromTrips;
+
+    @OneToMany(mappedBy = "toLocation")
+    private List<Trip> toTrips;
+
+
     private String location;
     private String description;
     private OffsetDateTime createdAt;

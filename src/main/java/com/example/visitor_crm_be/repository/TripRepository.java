@@ -9,10 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    List<Trip> findByVisitorId(Long visitorId);
-    List<Trip> findByDirection(String direction);
-    List<Trip> findByFlightNumber(String flightNumber);
-    List<Trip> findByLocationId(Long locationId);
-    List<Trip> findByDatetimeBetween(OffsetDateTime start, OffsetDateTime end);
-    List<Trip> findByVisitorHotelId(Long hotelId);
+    List<Trip> findByFromLocationId(Long fromLocationId);
+    List<Trip> findByToLocationId(Long toLocationId);
 }

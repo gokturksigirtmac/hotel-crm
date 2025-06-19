@@ -22,8 +22,10 @@ public class Company {
     @ManyToOne
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Visitor> visitors = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private List<Trip> trips;
+
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 

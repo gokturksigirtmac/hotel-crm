@@ -94,14 +94,14 @@ public class AppStartupConfig implements CommandLineRunner {
 
 
         // Seed default Vehicle
-        Vehicle defaultAdminVehicle = vehicleRepository.findByLicensePlateNumber("ADMIN-000")
+        Vehicle defaultAdminVehicle = vehicleRepository.findByPlateNumber("ADMIN-000")
                 .orElseGet(() -> {
                     Vehicle vehicle = new Vehicle();
                     vehicle.setHotel(defaultAdminHotel); // required due to nullable = false
                     vehicle.setBrand("DefaultBrand");    // Optional: provide a sensible default
                     vehicle.setModel("DefaultModel");    // Optional: same here
                     vehicle.setType("Sedan");
-                    vehicle.setLicensePlateNumber("ADMIN-000");
+                    vehicle.setPlateNumber("ADMIN-000");
                     vehicle.setCreatedAt(OffsetDateTime.now());
                     vehicle.setUpdatedAt(OffsetDateTime.now());
                     return vehicleRepository.save(vehicle);
@@ -119,9 +119,6 @@ public class AppStartupConfig implements CommandLineRunner {
                     visitor.setTripType("From Airport");
 
                     visitor.setHotel(defaultAdminHotel);
-                    visitor.setCompany(defaultAdminCompany);
-                    visitor.setDriver(defaultAdminDriver);
-                    visitor.setVehicle(defaultAdminVehicle);
                     visitor.setCreatedAt(OffsetDateTime.now());
                     visitor.setUpdatedAt(OffsetDateTime.now());
 

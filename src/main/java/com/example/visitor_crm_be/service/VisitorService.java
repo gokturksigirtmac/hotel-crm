@@ -25,9 +25,6 @@ public class VisitorService {
 
         Visitor visitor = new Visitor();
         visitor.setHotel(hotel);
-        visitor.setCompany(dto.getCompany());
-        visitor.setDriver(dto.getDriver());
-        visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
         visitor.setNumberOfPersons(dto.getNumberofPersons());
@@ -41,9 +38,6 @@ public class VisitorService {
         Visitor visitor = visitorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
 
-        visitor.setCompany(dto.getCompany());
-        visitor.setDriver(dto.getDriver());
-        visitor.setVehicle(dto.getVehicle());
         visitor.setFullName(dto.getFullName());
         visitor.setPhoneNumber(dto.getPhoneNumber());
         visitor.setNumberOfPersons(dto.getNumberOfPersons());
@@ -69,15 +63,8 @@ public class VisitorService {
     private VisitorResponseDTO mapToDTO(Visitor visitor) {
         VisitorResponseDTO dto = new VisitorResponseDTO();
         dto.setId(visitor.getId());
-        dto.setHotel(visitor.getHotel());
-        dto.setCompany(visitor.getCompany());
-        dto.setDriver(visitor.getDriver());
-        dto.setVehicle(visitor.getVehicle());
         dto.setFullName(visitor.getFullName());
         dto.setPhoneNumber(visitor.getPhoneNumber());
-        dto.setNumberOfPersons(visitor.getNumberOfPersons());
-        dto.setCreatedAt(visitor.getCreatedAt());
-        dto.setUpdatedAt(visitor.getUpdatedAt());
         return dto;
     }
 }

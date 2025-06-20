@@ -76,8 +76,6 @@ public class CompanyService {
         dto.setId(company.getId());
         dto.setName(company.getName());
         dto.setHotelId(company.getHotel().getId());
-        dto.setCreatedAt(company.getCreatedAt());
-        dto.setUpdatedAt(company.getUpdatedAt());
         return dto;
     }
 }

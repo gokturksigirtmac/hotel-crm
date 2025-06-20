@@ -65,8 +65,6 @@ public class LocationService {
         dto.setHotelId(location.getHotel().getId());
         dto.setLocation(location.getLocation());
         dto.setDescription(location.getDescription());
-        dto.setCreatedAt(location.getCreatedAt());
-        dto.setUpdatedAt(location.getUpdatedAt());
         return dto;
     }
 }

@@ -68,8 +68,6 @@ public class DriverService {
         dto.setFirstName(driver.getFirstName());
         dto.setLastName(driver.getLastName());
         dto.setPhoneNumber(driver.getPhoneNumber());
-        dto.setCreatedAt(driver.getCreatedAt());
-        dto.setUpdatedAt(driver.getUpdatedAt());
         return dto;
     }
 }

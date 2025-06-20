@@ -22,4 +22,7 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long> {
     List<Visitor> findAllWithTrips();
 
     Optional<Visitor> findByFullName(String fullName);
+
+    List<Visitor> findByHotelId(Long hotelId);
+
 }

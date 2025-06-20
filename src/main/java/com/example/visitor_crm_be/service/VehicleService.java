@@ -67,9 +67,7 @@ public class VehicleService {
         dto.setHotelId(vehicle.getHotel().getId());
         dto.setBrand(vehicle.getBrand());
         dto.setModel(vehicle.getModel());
-        dto.setLicensePlateNumber(vehicle.getPlateNumber());
-        dto.setCreatedAt(vehicle.getCreatedAt());
-        dto.setUpdatedAt(vehicle.getUpdatedAt());
+        dto.setPlateNumber(vehicle.getPlateNumber());
         return dto;
     }
 }

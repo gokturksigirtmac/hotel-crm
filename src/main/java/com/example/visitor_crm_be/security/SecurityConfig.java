@@ -52,6 +52,7 @@ public class SecurityConfig {
                         requestMatchers("/api/locations/**").hasAuthority("ROLE_ADMIN").
                         requestMatchers("/api/vehicles").hasAuthority("ROLE_ADMIN").
                         requestMatchers("/api/vehicles/**").hasAuthority("ROLE_ADMIN").
+                        requestMatchers("/api/trial").permitAll().
                         requestMatchers("/api/auth/login").permitAll().
                         requestMatchers("/auth/create").permitAll().
                         anyRequest().authenticated())

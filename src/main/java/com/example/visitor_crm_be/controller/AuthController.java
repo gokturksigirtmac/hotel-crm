@@ -6,6 +6,8 @@ import com.example.visitor_crm_be.dto.AuthResponseDTO;
 import com.example.visitor_crm_be.dto.UserCreateDTO;
 import com.example.visitor_crm_be.dto.UserResponseDTO;
 import com.example.visitor_crm_be.error.UserAlreadyExistsException;
+import com.example.visitor_crm_be.model.User;
+import com.example.visitor_crm_be.repository.UserRepository;
 import com.example.visitor_crm_be.security.JwtHelper;
 import com.example.visitor_crm_be.security.SecurityConfig;
 import com.example.visitor_crm_be.service.UserImpService;
@@ -22,6 +24,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -36,9 +40,10 @@ public class AuthController {
     private AuthenticationManager manager;
     @Autowired
     private JwtHelper helper;
-
     @Autowired
     private UserImpService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/create")
     public ResponseEntity<AuthResponseDTO> createUser(@RequestBody UserCreateDTO userRequestDto) {
@@ -64,6 +69,12 @@ public class AuthController {
         this.doAuthenticate(authRequestDTO.getUsername(), authRequestDTO.getPassword());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());
+
+        Optional<User> user = userRepository.findByEmail(authRequestDTO.getUsername());
+
+        if (user.get().getHotel().isSuspended()) {
+            throw new RuntimeException("Trial period expired. Please contact support.");
+        }
 
         String token = this.helper.generateToken(userDetails);
 

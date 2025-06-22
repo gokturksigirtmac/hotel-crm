@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,10 @@ public class Hotel {
     private List<Visitor> visitors = new ArrayList<>();
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
+
+    private boolean trial;
+    private boolean suspended;
+    private LocalDateTime trialExpiresAt;
     private String hotelName;                 // Hotel name
     private String staffName;           // First name of staff
     private String staffSurname;        // Last name of staff

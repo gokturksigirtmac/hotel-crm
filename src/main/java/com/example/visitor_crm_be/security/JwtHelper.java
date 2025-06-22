@@ -3,6 +3,7 @@ package com.example.visitor_crm_be.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,9 @@ import java.util.function.Function;
 @Component
 public class JwtHelper {
 
+    private final String secret = "39e314111aea87e5bb29df023ed76c964978f87d20e2118bf97e872167b398cbf0578b97c744f3d2e54cd9a8ec7905e07b8e7122476b5dbbc5916aa117ce272a4115d719f81b41cda294128c5e760518644adeafd3cfc4a7fbff60f242e44b32cca21ed81764d1855f80fcc8a910041a49730b39d085ab2be7c56352ad27c90c98afe27991228054a45f4dc0461b55321d1fe9c0cee168e66f887f4197c6072081bd56085a3d718bce34014e5f4f4ed88897c4f10f2ee77ffa6d0d72683431dc1154da7e18e38a9f286d4341866bb2cf138815ff480dba83596e9dd782393002fd672acf0abf62ede35a57218b081d7cd325413508545abf3fb4d7dedabc91c2";
+    private final long jwtTokenValidity = 36000000;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 60 * 60; // token expire date
-
-    private String secret = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf"; // secret code
 
     // Retrieve username from jwt token
     public String getUsernameFromToken(String token) {
@@ -65,7 +65,7 @@ public class JwtHelper {
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 

@@ -9,5 +9,7 @@ import lombok.*;
 @Builder
 @ToString
 public class AuthResponseDTO {
+    private String message;
     private String token;
 }
+

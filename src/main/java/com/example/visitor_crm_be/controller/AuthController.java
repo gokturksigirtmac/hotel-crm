@@ -59,27 +59,41 @@ public class AuthController {
             return new ResponseEntity<>(authResponseDTO, HttpStatus.CREATED);
         } catch (UserAlreadyExistsException ex) {
             // Handle the exception and return an appropriate response
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new AuthResponseDTO("User already exists: " + ex.getMessage()));
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(AuthResponseDTO.builder()
+                            .message("User already exists: " + ex.getMessage())
+                            .build()
+                    );
         }
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthRequestDTO authRequestDTO) {
-        System.out.println(authRequestDTO.getUsername() + " " + authRequestDTO.getPassword());
         this.doAuthenticate(authRequestDTO.getUsername(), authRequestDTO.getPassword());
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());
-
         Optional<User> user = userRepository.findByEmail(authRequestDTO.getUsername());
 
-        if (user.get().getHotel().isSuspended()) {
-            throw new RuntimeException("Trial period expired. Please contact support.");
+        // Check if trial is suspended
+        if (user.isPresent() && user.get().getHotel().isSuspended()) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(AuthResponseDTO.builder()
+                            .message("Trial period expired. Please contact support.")
+                            .build()
+                    );
         }
-
+        // Generate JWT
         String token = this.helper.generateToken(userDetails);
 
-        AuthResponseDTO jwtResponse = AuthResponseDTO.builder().token(token).build();
-        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
+        // Return token and success message
+        return ResponseEntity.ok(
+                AuthResponseDTO.builder()
+                        .token(token)
+                        .message("Authenticated successfully.")
+                        .build()
+        );
     }
 
     private void doAuthenticate(String email, String password) {

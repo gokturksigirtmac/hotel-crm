@@ -1,6 +1,7 @@
 package com.example.visitor_crm_be.controller;
 
 import com.example.visitor_crm_be.dto.TrialRequestDTO;
+import com.example.visitor_crm_be.dto.TrialResponseDTO;
 import com.example.visitor_crm_be.model.*;
 import com.example.visitor_crm_be.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/trial")
@@ -35,9 +39,11 @@ public class TrialController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping()
-    public ResponseEntity<?> createTrialHotel(@RequestBody TrialRequestDTO request) {
+    public ResponseEntity<TrialResponseDTO> createTrialHotel(@RequestBody TrialRequestDTO request) {
+        TrialResponseDTO response = new TrialResponseDTO();
         if (userRepository.existsByEmail(request.getAdminEmail())) {
-            return ResponseEntity.badRequest().body("Email already in use.");
+            response.setMessage("Email already exists");
+            return ResponseEntity.badRequest().body(response);
         }
 
         // Step 1: Create Hotel
@@ -115,7 +121,8 @@ public class TrialController {
 
         companyRepository.saveAll(List.of(company1, company2));
 
-        return ResponseEntity.ok("Trial account created successfully. Valid for 7 days.");
+        response.setMessage("Trial account created successfully! You will redirect to login page.");
+        return ResponseEntity.created(URI.create("/api/trial/")).body(response);
     }
 
 

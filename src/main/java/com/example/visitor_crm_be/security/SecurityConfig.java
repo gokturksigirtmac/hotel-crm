@@ -65,7 +65,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // React için izin ver
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "https://visitor-crm-fe.vercel.app",
+                "https://visitor-crm-5gyoullus-gokturks-projects-a4f3df78.vercel.app"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*")); // İzin verilen header'lar
         configuration.setAllowCredentials(true); // Eğer cookie varsa

@@ -75,11 +75,13 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());
         Optional<User> user = userRepository.findByEmail(authRequestDTO.getUsername());
 
+        AuthResponseDTO authResponseDTO = null;
+
         // Check if trial is suspended
         if (user.isPresent() && user.get().getHotel().isSuspended()) {
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
-                    .body(AuthResponseDTO.builder()
+                    .body(authResponseDTO.builder()
                             .message("Trial period expired. Please contact support.")
                             .build()
                     );
@@ -89,7 +91,7 @@ public class AuthController {
 
         // Return token and success message
         return ResponseEntity.ok(
-                AuthResponseDTO.builder()
+                authResponseDTO.builder()
                         .token(token)
                         .message("Authenticated successfully.")
                         .build()
@@ -105,13 +107,18 @@ public class AuthController {
 
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException(" Invalid Username or Password  !!");
-
         }
 
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public String exceptionHandler(BadCredentialsException ex) {
-        return "Credentials Invalid !!";
+    public ResponseEntity<AuthResponseDTO> handleBadCredentials(BadCredentialsException ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(AuthResponseDTO.builder()
+                        .message("Invalid username or password")
+                        .build()
+                );
     }
+
 }

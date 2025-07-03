@@ -24,6 +24,7 @@ public class VisitorResponseDTO {
     @Getter
     @Setter
     public static class TripDTO {
+        private Long id;
         private String flightNumber;
         private String direction;
         private String datetime;

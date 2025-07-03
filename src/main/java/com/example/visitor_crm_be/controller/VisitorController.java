@@ -218,6 +218,7 @@ public class VisitorController {
 
             List<VisitorResponseDTO.TripDTO> tripDTOs = visitor.getTrips().stream().map(trip -> {
                 VisitorResponseDTO.TripDTO tripDTO = new VisitorResponseDTO.TripDTO();
+                tripDTO.setId(trip.getId());
                 tripDTO.setFlightNumber(trip.getFlightNumber());
                 tripDTO.setDirection(trip.getDirection());
                 tripDTO.setDatetime(trip.getDatetime().toString());
@@ -306,7 +307,5 @@ public class VisitorController {
 
         return ResponseEntity.ok(response);
     }
-
-
 
 }

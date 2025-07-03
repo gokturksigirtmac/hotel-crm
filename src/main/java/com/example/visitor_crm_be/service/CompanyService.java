@@ -21,20 +21,6 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final HotelRepository hotelRepository;
 
-    // Create a new company
-    public CompanyResponseDTO createCompany(CompanyCreateDTO dto) {
-        Hotel hotel = hotelRepository.findById(dto.getHotelId())
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-
-        Company company = new Company();
-        company.setName(dto.getName());
-        company.setHotel(hotel);
-        company.setCreatedAt(OffsetDateTime.now());
-        company.setUpdatedAt(OffsetDateTime.now());
-
-        companyRepository.save(company);
-        return mapToDTO(company);
-    }
 
     // Update existing company
     public CompanyResponseDTO updateCompany(Integer id, CompanyUpdateDTO dto) {

@@ -28,5 +28,4 @@ public class Company {
 
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-
 }

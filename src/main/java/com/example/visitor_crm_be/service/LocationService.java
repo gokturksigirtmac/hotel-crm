@@ -1,11 +1,8 @@
 package com.example.visitor_crm_be.service;
 
-import com.example.visitor_crm_be.dto.LocationCreateDTO;
 import com.example.visitor_crm_be.dto.LocationResponseDTO;
 import com.example.visitor_crm_be.dto.LocationUpdateDTO;
-import com.example.visitor_crm_be.model.Hotel;
 import com.example.visitor_crm_be.model.Location;
-import com.example.visitor_crm_be.repository.HotelRepository;
 import com.example.visitor_crm_be.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,21 +15,6 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 public class LocationService {
     private final LocationRepository locationRepository;
-    private final HotelRepository hotelRepository;
-
-    public LocationResponseDTO create(LocationCreateDTO dto) {
-        Hotel hotel = hotelRepository.findById(dto.getHotelId())
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-
-        Location location = new Location();
-        location.setHotel(hotel);
-        location.setLocation(dto.getLocation());
-        location.setDescription(dto.getDescription());
-        location.setCreatedAt(OffsetDateTime.now());
-        location.setUpdatedAt(OffsetDateTime.now());
-
-        return mapToDTO(locationRepository.save(location));
-    }
 
     public LocationResponseDTO update(Long id, LocationUpdateDTO dto) {
         Location location = locationRepository.findById(id)

@@ -9,6 +9,6 @@ public class CompanyResponseDTO {
     private Integer id;
     private String name;
     private Long hotelId;
-
+    private String httpMessage;
 }
 

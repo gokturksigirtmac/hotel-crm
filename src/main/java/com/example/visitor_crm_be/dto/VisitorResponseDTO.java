@@ -13,6 +13,7 @@ public class VisitorResponseDTO {
     private String phoneNumber;
     private String specialNote;
     private String tripType;
+    private Integer numberOfPersons;
 
     private CompanyDTO company;
     private DriverDTO driver;

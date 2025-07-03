@@ -18,22 +18,6 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 public class DriverService {
     private final DriverRepository driverRepository;
-    private final HotelRepository hotelRepository;
-
-    public DriverResponseDTO create(DriverCreateDTO dto) {
-        Hotel hotel = hotelRepository.findById(dto.getHotelId())
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-
-        Driver driver = new Driver();
-        driver.setHotel(hotel);
-        driver.setFirstName(dto.getFirstName());
-        driver.setLastName(dto.getLastName());
-        driver.setPhoneNumber(dto.getPhoneNumber());
-        driver.setCreatedAt(OffsetDateTime.now());
-        driver.setUpdatedAt(OffsetDateTime.now());
-
-        return mapToDTO(driverRepository.save(driver));
-    }
 
     public DriverResponseDTO update(Long id, DriverUpdateDTO dto) {
         Driver driver = driverRepository.findById(id)

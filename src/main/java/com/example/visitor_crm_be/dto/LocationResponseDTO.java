@@ -10,4 +10,5 @@ public class LocationResponseDTO {
     private Long hotelId;
     private String location;
     private String description;
+    private String httpMessage;
 }

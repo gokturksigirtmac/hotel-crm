@@ -12,5 +12,5 @@ public class VehicleResponseDTO {
     private String model;
     private String type;
     private String plateNumber;
-
+    private String httpMessage;
 }

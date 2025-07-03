@@ -12,4 +12,5 @@ public class DriverResponseDTO {
     private String lastName;
     private String phoneNumber;
     private String licenseNumber;
+    private String httpMessage;
 }

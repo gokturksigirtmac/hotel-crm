@@ -2,20 +2,19 @@ package com.example.visitor_crm_be.controller;
 
 import com.example.visitor_crm_be.dto.CompanyCreateDTO;
 import com.example.visitor_crm_be.dto.CompanyResponseDTO;
-import com.example.visitor_crm_be.dto.CompanyUpdateDTO;
 import com.example.visitor_crm_be.model.Company;
+import com.example.visitor_crm_be.model.Hotel;
 import com.example.visitor_crm_be.model.User;
 import com.example.visitor_crm_be.repository.CompanyRepository;
 import com.example.visitor_crm_be.repository.UserRepository;
-import com.example.visitor_crm_be.service.CompanyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,40 +23,48 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CompanyController {
 
-    private final CompanyService companyService;
-
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
 
-    @PostMapping
-    public ResponseEntity<CompanyResponseDTO> createCompany(@RequestBody CompanyCreateDTO dto) {
-        return ResponseEntity.ok(companyService.createCompany(dto));
-    }
+    @PostMapping("by-hotel")
+    public ResponseEntity<CompanyResponseDTO> createCompanyByHotel(@RequestBody CompanyCreateDTO companyCreateDTO) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CompanyResponseDTO> updateCompany(
-            @PathVariable Integer id,
-            @RequestBody CompanyUpdateDTO dto) {
-        return ResponseEntity.ok(companyService.updateCompany(id, dto));
-    }
+        CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CompanyResponseDTO> getCompanyById(@PathVariable Integer id) {
-        return ResponseEntity.ok(companyService.getCompanyById(id));
-    }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompany(@PathVariable Integer id) {
-        companyService.deleteCompany(id);
-        return ResponseEntity.noContent().build();
-    }
+        if (user == null) {
+            companyResponseDTO.setHttpMessage("Kullanıcı bulunamadı, token kontrol edin");
+            return new ResponseEntity<>(companyResponseDTO, HttpStatus.NOT_FOUND);
+        }
 
-    @GetMapping
-    public ResponseEntity<Page<CompanyResponseDTO>> getAllCompanies(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(companyService.getAllCompanies(pageable));
+        Hotel hotel = user.getHotel();
+
+        if (hotel == null) {
+            companyResponseDTO.setHttpMessage("Kayıtlı firma bulunamadı");
+            return new ResponseEntity<>(companyResponseDTO, HttpStatus.NOT_FOUND);
+        }
+
+        Company company = new Company();
+        company.setName(companyCreateDTO.getName());
+        company.setHotel(hotel);
+        company.setCreatedAt(OffsetDateTime.now());
+        company.setUpdatedAt(OffsetDateTime.now());
+        company = companyRepository.save(company);
+
+        if (company == null) {
+            companyResponseDTO.setHttpMessage("Firma kaydedilemedi");
+            return new ResponseEntity<>(companyResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        companyResponseDTO.setId(company.getId());
+        companyResponseDTO.setName(company.getName());
+        companyResponseDTO.setHotelId(company.getHotel().getId());
+        companyResponseDTO.setHttpMessage("Firma başarıyla kaydedildi");
+
+        return ResponseEntity.created(URI.create("api/companies/by-hotel")).body(companyResponseDTO);
     }
 
     @GetMapping("/by-hotel")

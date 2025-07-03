@@ -18,22 +18,6 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 public class VehicleService {
     private final VehicleRepository vehicleRepository;
-    private final HotelRepository hotelRepository;
-
-    public VehicleResponseDTO create(VehicleCreateDTO dto) {
-        Hotel hotel = hotelRepository.findById(dto.getHotelId())
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-
-        Vehicle vehicle = new Vehicle();
-        vehicle.setHotel(hotel);
-        vehicle.setBrand(dto.getBrand());
-        vehicle.setModel(dto.getModel());
-        vehicle.setPlateNumber(dto.getLicensePlateNumber());
-        vehicle.setCreatedAt(OffsetDateTime.now());
-        vehicle.setUpdatedAt(OffsetDateTime.now());
-
-        return mapToDTO(vehicleRepository.save(vehicle));
-    }
 
     public VehicleResponseDTO update(Long id, VehicleUpdateDTO dto) {
         Vehicle vehicle = vehicleRepository.findById(id)

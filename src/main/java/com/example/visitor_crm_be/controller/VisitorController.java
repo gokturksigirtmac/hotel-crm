@@ -212,6 +212,7 @@ public class VisitorController {
             dto.setId(visitor.getId());
             dto.setFullName(visitor.getFullName());
             dto.setPhoneNumber(visitor.getPhoneNumber());
+            dto.setNumberOfPersons(visitor.getNumberOfPersons());
             dto.setSpecialNote(visitor.getSpecialNote());
             dto.setTripType(visitor.getTripType());
 
